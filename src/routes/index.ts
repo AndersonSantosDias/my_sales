@@ -1,9 +1,11 @@
+import productsRouter from "./ProductRouter";
 import { Router } from "express";
 
-const router = Router()
+const routes = Router()
 
-router.get('/health', (request, response) => {
+routes.get('/health', (request, response) => {
     return response.json({message: "hello Dev! i'm alive!"})
 })
+routes.use("/products",productsRouter)
 
-export default router
+export default routes
