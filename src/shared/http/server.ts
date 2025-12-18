@@ -1,8 +1,9 @@
 import "reflect-metadata";
 import Express from "express";
 import cors from "cors";
-import routes from "src/routes";
+import routes from "@shared/http/routes";
 import ErrorHandleMiddleware from "@shared/midllewares/ErrorHandleMiddleware";
+import { errors } from "celebrate";
 
 import { AppDataSource } from "@shared/typeorm/data-source";
 
@@ -11,8 +12,9 @@ AppDataSource.initialize().then(async () => {
 
     app.use(cors())
     app.use(Express.json())
-    app.use(ErrorHandleMiddleware.handleError)
     app.use(routes)
+    app.use(errors())
+    app.use(ErrorHandleMiddleware.handleError)
 
     console.log("conectado ao banco de dados")
     app.listen(3333, () => {
